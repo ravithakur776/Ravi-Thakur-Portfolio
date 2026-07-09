@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 import { useMotionPreference } from "@/features/motion/motion-provider";
 
-export function usePointerAtmosphere() {
+export function useExperiencePointer() {
   const ref = useRef<HTMLDivElement>(null);
   const { prefersReducedMotion } = useMotionPreference();
 

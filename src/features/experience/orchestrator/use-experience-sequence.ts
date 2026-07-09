@@ -4,9 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 
 import { useMotionPreference } from "@/features/motion/motion-provider";
 
-import { landingTiming } from "./landing.config";
+import { experienceTiming } from "../experience/experience.config";
+import { useExperiencePreload } from "../loading/use-experience-preload";
 
-export type LandingPhase = "loading" | "intro" | "hero";
+export type ExperiencePhase = "loading" | "intro" | "hero";
 
 function prefersLowBandwidth() {
   if (typeof navigator === "undefined") {
@@ -29,9 +30,10 @@ function prefersLowBandwidth() {
   );
 }
 
-export function useLandingSequence() {
+export function useExperienceSequence() {
   const { prefersReducedMotion } = useMotionPreference();
-  const [phase, setPhase] = useState<LandingPhase>("loading");
+  const preloadStatus = useExperiencePreload();
+  const [phase, setPhase] = useState<ExperiencePhase>("loading");
   const [isLowBandwidth, setIsLowBandwidth] = useState(false);
 
   useEffect(() => {
@@ -39,12 +41,16 @@ export function useLandingSequence() {
   }, []);
 
   useEffect(() => {
+    if (preloadStatus === "pending") {
+      return;
+    }
+
     const loadingTimer = window.setTimeout(() => {
       setPhase(prefersReducedMotion || isLowBandwidth ? "hero" : "intro");
-    }, landingTiming.loadingMs);
+    }, 180);
 
     return () => window.clearTimeout(loadingTimer);
-  }, [isLowBandwidth, prefersReducedMotion]);
+  }, [isLowBandwidth, prefersReducedMotion, preloadStatus]);
 
   useEffect(() => {
     if (phase !== "intro") {
@@ -55,7 +61,9 @@ export function useLandingSequence() {
       () => {
         setPhase("hero");
       },
-      prefersReducedMotion ? landingTiming.reducedMotionIntroMs : landingTiming.introMs,
+      prefersReducedMotion
+        ? experienceTiming.reducedMotionIntroMs
+        : experienceTiming.introMs,
     );
 
     return () => window.clearTimeout(introTimer);
@@ -65,9 +73,10 @@ export function useLandingSequence() {
     () => ({
       isLowBandwidth,
       phase,
+      preloadStatus,
       prefersReducedMotion,
       skipIntro: () => setPhase("hero"),
     }),
-    [isLowBandwidth, phase, prefersReducedMotion],
+    [isLowBandwidth, phase, preloadStatus, prefersReducedMotion],
   );
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { LandingExperience } from "@/features/landing/landing-experience";
+import { LandingExperience } from "@/features/experience/experience/landing-experience";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createPageMetadata({

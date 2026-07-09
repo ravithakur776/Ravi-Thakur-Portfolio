@@ -208,10 +208,10 @@ Future features plug into `src/features/*`, shared primitives stay in `src/compo
 ## Landing Experience Architecture
 
 **Decision**  
-Implement the first-fold homepage as `src/features/landing`, with the route file limited to metadata and feature composition.
+Implement the first-fold homepage as `src/features/experience`, with the route file limited to metadata and feature composition.
 
 **Why**  
-The landing sequence is a product experience with timing, motion, media architecture, and interaction rules. Keeping it feature-scoped prevents cinematic concerns from leaking into the platform shell.
+The landing sequence is a product experience with timing, motion, media architecture, pointer behavior, scroll awareness, and interaction rules. Keeping it feature-scoped prevents cinematic concerns from leaking into the platform shell.
 
 **Alternatives considered**
 
@@ -223,7 +223,7 @@ The landing sequence is a product experience with timing, motion, media architec
 The landing uses a client island for timing, pointer atmosphere, intro skip behavior, floating nav reveal, and reduced-motion handling. The route still statically renders and avoids heavy assets.
 
 **Scalability**  
-Future work can replace `LandingScenePlaceholder` with a lazy-loaded 3D scene, connect real video sources through `landing.config.ts`, and move CTA destinations to real routes once those experiences exist.
+Future work can replace the atmosphere scene placeholder with a lazy-loaded 3D scene, connect real video sources through `experience.config.ts`, and move CTA destinations to real routes once those experiences exist.
 
 ### Provider Stack
 

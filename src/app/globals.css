@@ -23,6 +23,7 @@
   --input: oklch(0.9 0.006 260);
   --ring: oklch(0.56 0.04 180);
   --shadow-shell: 0 24px 80px oklch(0.16 0.006 260 / 12%);
+  --scroll-progress: 0;
   --radius: 0.5rem;
 }
 
@@ -139,25 +140,35 @@ select {
   color: var(--accent-foreground);
 }
 
-.landing-stage {
+.experience-stage {
   --pointer-x: 50%;
   --pointer-y: 44%;
   isolation: isolate;
 }
 
-.landing-atmosphere {
+.experience-noise {
+  background-image: radial-gradient(oklch(1 0 0 / 10%) 0.7px, transparent 0.7px);
+  background-size: 3px 3px;
+  opacity: 0.18;
+  mix-blend-mode: soft-light;
+}
+
+.experience-gradient {
+  background: linear-gradient(180deg, oklch(0.11 0.006 260), var(--background) 68%);
+}
+
+.experience-atmosphere {
   background:
     radial-gradient(
       circle at var(--pointer-x) var(--pointer-y),
       oklch(0.68 0.09 185 / 28%),
       transparent 28rem
     ),
-    radial-gradient(circle at 78% 18%, oklch(0.72 0.05 95 / 12%), transparent 22rem),
-    linear-gradient(180deg, oklch(0.11 0.006 260), var(--background) 68%);
+    radial-gradient(circle at 78% 18%, oklch(0.72 0.05 95 / 12%), transparent 22rem);
   transform: translateZ(0);
 }
 
-.landing-mask {
+.experience-mask {
   background:
     linear-gradient(
       180deg,
@@ -169,17 +180,17 @@ select {
     radial-gradient(circle at 50% 55%, transparent, var(--background) 78%);
 }
 
-.landing-load-line {
-  animation: landing-load-line 1.35s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+.experience-load-line {
+  animation: experience-load-line 1.35s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   transform-origin: left;
 }
 
-.landing-intro-scan {
-  animation: landing-intro-scan 4.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+.experience-intro-scan {
+  animation: experience-intro-scan 4.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
   box-shadow: 0 0 80px oklch(0.78 0.09 185 / 46%);
 }
 
-.landing-hero-media::before {
+.experience-hero-media::before {
   position: absolute;
   inset: 12%;
   content: "";
@@ -188,7 +199,7 @@ select {
   transform: rotate(-18deg);
 }
 
-.landing-hero-media::after {
+.experience-hero-media::after {
   position: absolute;
   inset: 20% 28%;
   content: "";
@@ -197,11 +208,11 @@ select {
   transform: rotate(24deg);
 }
 
-.landing-scroll-arrow {
-  animation: landing-scroll-arrow 1.8s ease-in-out infinite;
+.experience-scroll-arrow {
+  animation: experience-scroll-arrow 1.8s ease-in-out infinite;
 }
 
-@keyframes landing-load-line {
+@keyframes experience-load-line {
   0% {
     transform: translateX(-70%) scaleX(0.45);
     opacity: 0.2;
@@ -217,7 +228,7 @@ select {
   }
 }
 
-@keyframes landing-intro-scan {
+@keyframes experience-intro-scan {
   0%,
   100% {
     opacity: 0.16;
@@ -230,7 +241,7 @@ select {
   }
 }
 
-@keyframes landing-scroll-arrow {
+@keyframes experience-scroll-arrow {
   0%,
   100% {
     transform: translateY(0);
@@ -253,9 +264,25 @@ select {
     transition-duration: 0.01ms !important;
   }
 
-  .landing-load-line,
-  .landing-intro-scan,
-  .landing-scroll-arrow {
+  .experience-load-line,
+  .experience-intro-scan,
+  .experience-scroll-arrow {
     animation: none !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --border: oklch(0.45 0.01 260);
+    --ring: oklch(0.42 0.08 185);
+  }
+
+  .dark {
+    --border: oklch(0.82 0.01 260);
+    --ring: oklch(0.78 0.09 185);
+  }
+
+  .experience-noise {
+    opacity: 0;
   }
 }

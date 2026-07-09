@@ -17,5 +17,26 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
       : "smooth";
   }, [prefersReducedMotion]);
 
+  useEffect(() => {
+    function updateScrollProgress() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+
+      document.documentElement.style.setProperty(
+        "--scroll-progress",
+        String(Math.min(Math.max(progress, 0), 1)),
+      );
+    }
+
+    updateScrollProgress();
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("resize", updateScrollProgress);
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollProgress);
+      window.removeEventListener("resize", updateScrollProgress);
+    };
+  }, []);
+
   return children;
 }
