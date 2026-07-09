@@ -42,9 +42,14 @@ function resolveTheme(preference: ThemePreference): ResolvedTheme {
 }
 
 function applyTheme(theme: ResolvedTheme) {
+  document.documentElement.classList.add("theme-transition");
   document.documentElement.classList.toggle("dark", theme === "dark");
   document.documentElement.dataset.theme = theme;
   document.documentElement.style.colorScheme = theme;
+
+  window.setTimeout(() => {
+    document.documentElement.classList.remove("theme-transition");
+  }, 260);
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {

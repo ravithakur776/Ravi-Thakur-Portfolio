@@ -30,10 +30,12 @@ Included:
 
 - Next.js 15 App Router skeleton
 - Production application shell
+- First-fold landing experience
 - Global provider composition
 - Theme, motion, analytics, command palette, future AI, and future search providers
 - SEO routes: metadata, robots, sitemap, manifest, RSS preparation
 - Route loading, error, global-error, and not-found boundaries
+- Landing media architecture for future AI intro video and hero media
 - Accessibility shell: skip navigation, focus management, visible focus, reduced motion
 - Feature-first content engines for blog, projects, and case studies
 - Strict TypeScript configuration
@@ -51,10 +53,15 @@ Included:
 
 Not included yet:
 
-- Hero section
-- Home page content
-- Portfolio components
-- Animations
+- Below-fold homepage sections
+- About page
+- Project pages
+- Case study pages
+- Contact flow
+- Real intro video asset
+- Real hero image
+- Real resume asset
+- Heavy Three.js scene
 - 3D scenes
 - AI features
 - Blog or case study content
@@ -219,6 +226,8 @@ Before merge:
 Start with [Architecture.md](/Users/ravithakur/Desktop/Ravithakurportfolio%20/Architecture.md).
 
 Application shell details live in [docs/application-shell.md](/Users/ravithakur/Desktop/Ravithakurportfolio%20/docs/application-shell.md).
+
+Landing experience details live in [docs/landing-experience.md](/Users/ravithakur/Desktop/Ravithakurportfolio%20/docs/landing-experience.md).
 
 Future decision records should live in `docs/adr/` and use this naming pattern:
 

@@ -205,6 +205,26 @@ The shell adds a small amount of global client JavaScript for theme, motion, ana
 **Scalability**  
 Future features plug into `src/features/*`, shared primitives stay in `src/components/ui`, and route content remains server-first unless interactivity requires a client boundary.
 
+## Landing Experience Architecture
+
+**Decision**  
+Implement the first-fold homepage as `src/features/landing`, with the route file limited to metadata and feature composition.
+
+**Why**  
+The landing sequence is a product experience with timing, motion, media architecture, and interaction rules. Keeping it feature-scoped prevents cinematic concerns from leaking into the platform shell.
+
+**Alternatives considered**
+
+- Build directly in `src/app/page.tsx`: simpler, but route files would accumulate animation and media logic.
+- Build a generic hero component: premature, because this first impression is intentionally bespoke.
+- Add real video/3D now: not appropriate before final media and performance budgets exist.
+
+**Tradeoffs**  
+The landing uses a client island for timing, pointer atmosphere, intro skip behavior, floating nav reveal, and reduced-motion handling. The route still statically renders and avoids heavy assets.
+
+**Scalability**  
+Future work can replace `LandingScenePlaceholder` with a lazy-loaded 3D scene, connect real video sources through `landing.config.ts`, and move CTA destinations to real routes once those experiences exist.
+
 ### Provider Stack
 
 `AppProviders` composes:
