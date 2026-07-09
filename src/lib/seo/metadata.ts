@@ -3,11 +3,12 @@ import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 
 const titleTemplate = `%s | ${siteConfig.title}`;
+const defaultTitle = `${siteConfig.title} - ${siteConfig.professionalTitle}`;
 
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.title} - ${siteConfig.professionalTitle}`,
+    default: defaultTitle,
     template: titleTemplate,
   },
   description: siteConfig.description,
@@ -17,19 +18,31 @@ export const defaultMetadata: Metadata = {
   publisher: siteConfig.owner,
   alternates: {
     canonical: "/",
+    types: {
+      "application/rss+xml": "/rss.xml",
+    },
   },
+  category: "technology",
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
     url: siteConfig.url,
     siteName: siteConfig.title,
-    title: `${siteConfig.title} - ${siteConfig.professionalTitle}`,
+    title: defaultTitle,
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.title} - ${siteConfig.professionalTitle}`,
+    title: defaultTitle,
     description: siteConfig.description,
+  },
+  appleWebApp: {
+    capable: true,
+    title: siteConfig.title,
+    statusBarStyle: "black-translucent",
+  },
+  formatDetection: {
+    telephone: false,
   },
   robots: {
     index: true,
@@ -43,6 +56,52 @@ export const defaultMetadata: Metadata = {
     },
   },
 };
+
+type CreatePageMetadataInput = Readonly<{
+  title: string;
+  description: string;
+  path?: `/${string}`;
+  image?: string;
+  noIndex?: boolean;
+}>;
+
+export function createPageMetadata({
+  description,
+  image,
+  noIndex = false,
+  path = "/",
+  title,
+}: CreatePageMetadataInput): Metadata {
+  const url = new URL(path, siteConfig.url).toString();
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: path,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: siteConfig.title,
+      type: "website",
+      images: image ? [{ url: image, alt: title }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: image ? [image] : undefined,
+    },
+    robots: noIndex
+      ? {
+          index: false,
+          follow: false,
+        }
+      : defaultMetadata.robots,
+  };
+}
 
 export const defaultViewport: Viewport = {
   width: "device-width",

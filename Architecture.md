@@ -125,7 +125,9 @@ If this project becomes a monorepo, pnpm workspaces are a natural path.
 
 Owns routes, layouts, loading states, not-found states, global styles, and route-level metadata.
 
-Current implementation is intentionally minimal. `page.tsx`, `not-found.tsx`, and `global-error.tsx` render no branded experience yet because this phase is foundation-only.
+The root layout is the application shell. It composes global providers, structured data, theme initialization, persistent shell chrome, skip navigation, and the main landmark.
+
+Current implementation intentionally does not include portfolio content. `page.tsx` remains empty until the first real route experience is designed.
 
 ### `src/components`
 
@@ -137,11 +139,13 @@ Rule: do not add portfolio-specific sections here. A future hero, timeline, case
 
 Feature-level modules. Future examples:
 
-- `src/features/case-study`
-- `src/features/project-gallery`
+- `src/features/case-studies`
+- `src/features/projects`
 - `src/features/blog`
-- `src/features/ai-assistant`
-- `src/features/immersive-scene`
+- `src/features/ai`
+- `src/features/search`
+- `src/features/command`
+- `src/features/theme`
 
 Each feature may own its components, queries, schemas, tests, and local documentation.
 
@@ -162,9 +166,15 @@ Infrastructure and reusable non-React logic.
 Current modules:
 
 - `env.ts`: typed environment variable parsing
+- `env/public.ts`: browser-safe public environment parsing
 - `errors.ts`: application error primitive
 - `logger.ts`: structured logging primitive
+- `observability`: client logging and web-vitals reporting boundaries
 - `seo/metadata.ts`: shared metadata defaults
+- `seo/json-ld.ts`: structured data helpers
+- `content`: shared content source and MDX primitives
+- `cache`: cache tag definitions
+- `assets`: image and video policy helpers
 - `utils.ts`: shadcn-compatible utility helpers
 
 Reserved modules:
@@ -174,6 +184,58 @@ Reserved modules:
 - `animation`: future GSAP, Framer Motion, and Lenis orchestration
 - `content`: MDX parsing, frontmatter schemas, content indexes
 - `observability`: tracing, error reporting, and diagnostics
+
+## Application Shell Architecture
+
+**Decision**  
+Use a persistent root application shell composed in `src/app/layout.tsx`, with server-first rendering and small client islands for browser-only concerns.
+
+**Why**  
+The platform will eventually host portfolio pages, projects, case studies, writing, lab experiments, AI, contact, and interactive experiences. A persistent shell gives those routes shared accessibility, metadata, theme, analytics, command, and navigation infrastructure without each feature reimplementing it.
+
+**Alternatives considered**
+
+- Per-page layout ownership: flexible but causes duplicated provider and accessibility logic.
+- Fully client-rendered app shell: simpler for stateful UI, but worse for performance and Server Component discipline.
+- No shell until pages exist: faster now, but pushes architectural decisions into the first visual build.
+
+**Tradeoffs**  
+The shell adds a small amount of global client JavaScript for theme, motion, analytics, command palette, route focus, and web vitals. This is acceptable because each island owns a platform-level behavior.
+
+**Scalability**  
+Future features plug into `src/features/*`, shared primitives stay in `src/components/ui`, and route content remains server-first unless interactivity requires a client boundary.
+
+### Provider Stack
+
+`AppProviders` composes:
+
+- `ThemeProvider`
+- `MotionProvider`
+- `FutureAIProvider`
+- `FutureSearchProvider`
+- `AnalyticsProvider`
+- `WebVitalsReporter`
+- `CommandPaletteProvider`
+
+Why: each provider maps to a platform concern. AI and search are deliberately inert until product requirements exist.
+
+Tradeoff: provider order must remain intentional as real integrations arrive.
+
+### Navigation Framework
+
+Navigation is data-driven through `src/config/navigation.ts`.
+
+Why: future routes can be enabled without hardcoding labels inside layout components.
+
+Tradeoff: disabled routes currently render as non-interactive planned destinations, which is honest but minimal.
+
+### Content Engines
+
+Blog, project, and case study engines define Zod frontmatter schemas and empty retrieval functions.
+
+Why: route implementation should start from typed content contracts, not ad hoc MDX parsing.
+
+Tradeoff: content retrieval is intentionally postponed until real content exists.
 
 ## Environment Variables Strategy
 

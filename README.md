@@ -29,6 +29,13 @@ Mission: create a flagship personal website that combines engineering, design, s
 Included:
 
 - Next.js 15 App Router skeleton
+- Production application shell
+- Global provider composition
+- Theme, motion, analytics, command palette, future AI, and future search providers
+- SEO routes: metadata, robots, sitemap, manifest, RSS preparation
+- Route loading, error, global-error, and not-found boundaries
+- Accessibility shell: skip navigation, focus management, visible focus, reduced motion
+- Feature-first content engines for blog, projects, and case studies
 - Strict TypeScript configuration
 - ESLint flat config
 - Prettier with Tailwind class sorting
@@ -46,7 +53,6 @@ Not included yet:
 
 - Hero section
 - Home page content
-- Navbar
 - Portfolio components
 - Animations
 - 3D scenes
@@ -104,19 +110,41 @@ pnpm verify
 │   │   ├── globals.css
 │   │   ├── global-error.tsx
 │   │   ├── layout.tsx
+│   │   ├── loading.tsx
+│   │   ├── manifest.ts
 │   │   ├── not-found.tsx
-│   │   └── page.tsx
+│   │   ├── page.tsx
+│   │   ├── robots.ts
+│   │   ├── sitemap.ts
+│   │   └── rss.xml/
 │   ├── components/
+│   │   ├── layout/
+│   │   ├── providers/
 │   │   └── ui/
 │   ├── config/
+│   │   ├── navigation.ts
+│   │   ├── performance.ts
 │   │   └── site.ts
 │   ├── content/
 │   │   ├── blog/
 │   │   ├── case-studies/
 │   │   └── projects/
 │   ├── features/
+│   │   ├── ai/
+│   │   ├── analytics/
+│   │   ├── blog/
+│   │   ├── case-studies/
+│   │   ├── command/
+│   │   ├── motion/
+│   │   ├── navigation/
+│   │   ├── performance/
+│   │   ├── projects/
+│   │   ├── search/
+│   │   └── theme/
 │   ├── hooks/
 │   ├── lib/
+│   │   ├── assets/
+│   │   ├── cache/
 │   │   ├── ai/
 │   │   ├── analytics/
 │   │   ├── animation/
@@ -189,6 +217,8 @@ Before merge:
 ## Documentation
 
 Start with [Architecture.md](/Users/ravithakur/Desktop/Ravithakurportfolio%20/Architecture.md).
+
+Application shell details live in [docs/application-shell.md](/Users/ravithakur/Desktop/Ravithakurportfolio%20/docs/application-shell.md).
 
 Future decision records should live in `docs/adr/` and use this naming pattern:
 
