@@ -18,3 +18,25 @@ export const caseStudyFrontmatterSchema = z.object({
 });
 
 export type CaseStudyFrontmatter = z.infer<typeof caseStudyFrontmatterSchema>;
+
+export const caseStudySectionSchema = z.object({
+  id: z.enum([
+    "overview",
+    "problem",
+    "research",
+    "design",
+    "development",
+    "architecture",
+    "challenges",
+    "results",
+    "lessons",
+    "tech-stack",
+    "media",
+    "links",
+  ]),
+  title: z.string().min(1),
+  body: z.array(z.string()).default([]),
+  media: z.array(z.string()).default([]),
+});
+
+export type CaseStudySection = z.infer<typeof caseStudySectionSchema>;

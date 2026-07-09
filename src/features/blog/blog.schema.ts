@@ -10,6 +10,10 @@ export const blogPostFrontmatterSchema = z.object({
   publishedAt: z.string().datetime().optional(),
   updatedAt: z.string().datetime().optional(),
   tags: z.array(z.string()).default([]),
+  categories: z.array(z.string()).default([]),
+  readingTimeMinutes: z.number().positive().optional(),
+  excerpt: z.string().optional(),
+  syntaxHighlighting: z.boolean().default(true),
   canonicalUrl: z.string().url().optional(),
   ogImage: z.string().optional(),
 });

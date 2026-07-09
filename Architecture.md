@@ -127,7 +127,7 @@ Owns routes, layouts, loading states, not-found states, global styles, and route
 
 The root layout is the application shell. It composes global providers, structured data, theme initialization, persistent shell chrome, skip navigation, and the main landmark.
 
-Current implementation intentionally does not include portfolio content. `page.tsx` remains empty until the first real route experience is designed.
+`page.tsx` stays thin and delegates the homepage to `src/features/home/home-experience.tsx`. The route owns metadata; the feature owns composition.
 
 ### `src/components`
 
@@ -224,6 +224,32 @@ The landing uses a client island for timing, pointer atmosphere, intro skip beha
 
 **Scalability**  
 Future work can replace the atmosphere scene placeholder with a lazy-loaded 3D scene, connect real video sources through `experience.config.ts`, and move CTA destinations to real routes once those experiences exist.
+
+## Product Experience Architecture
+
+**Decision**  
+Build the complete homepage as feature-owned sections composed by `src/features/home/home-experience.tsx`.
+
+**Why**  
+The homepage communicates Ravi within one continuous product experience while preserving the shell, provider, theme, motion, and token architecture. Each section remains independently owned: about, journey, skills, projects, case studies, services, blog, lab, AI assistant, contact, and footer.
+
+**Alternatives considered**
+
+- A single large homepage component: faster initially, but difficult to maintain, test, and evolve.
+- Route-level subpages first: better for deep content, but premature before approved content exists.
+- Fake content to fill the UI: rejected because the product must be credible and evidence-led.
+
+**Tradeoffs**  
+Some sections render as architecture previews until Ravi supplies approved project media, outcomes, links, articles, and resume assets. This is intentional and avoids publishing false claims.
+
+**Scalability**  
+Project cards already support media, stack, results, GitHub, demos, and case-study links. Case studies define the reusable section contract. Blog and lab engines can move from preview to indexed content without route rewrites.
+
+## Content Honesty Rule
+
+The implementation must not invent statistics, testimonials, clients, awards, project results, public links, or resume assets. Missing content is represented as disabled, pending, or architecture-ready states.
+
+Why: Ravi's platform should create trust. Premature claims would weaken the product more than an intentional pending state.
 
 ### Provider Stack
 

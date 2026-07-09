@@ -31,13 +31,15 @@ Included:
 - Next.js 15 App Router skeleton
 - Production application shell
 - First-fold landing experience
+- Complete homepage product experience after the landing fold
+- About, journey, skills, featured projects, case study engine, services, blog engine, lab, AI assistant architecture, contact, and footer
 - Global provider composition
 - Theme, motion, analytics, command palette, future AI, and future search providers
 - SEO routes: metadata, robots, sitemap, manifest, RSS preparation
 - Route loading, error, global-error, and not-found boundaries
 - Landing media architecture for future AI intro video and hero media
 - Accessibility shell: skip navigation, focus management, visible focus, reduced motion
-- Feature-first content engines for blog, projects, and case studies
+- Feature-first content engines for blog, projects, case studies, lab, and AI assistant quick actions
 - Strict TypeScript configuration
 - ESLint flat config
 - Prettier with Tailwind class sorting
@@ -53,18 +55,17 @@ Included:
 
 Not included yet:
 
-- Below-fold homepage sections
-- About page
-- Project pages
-- Case study pages
-- Contact flow
+- Dedicated About route
+- Dedicated project routes
+- Dedicated case study routes
 - Real intro video asset
 - Real hero image
 - Real resume asset
 - Heavy Three.js scene
 - 3D scenes
-- AI features
-- Blog or case study content
+- Live AI API integration
+- Real blog articles or approved case study content
+- Public contact links
 
 ## Getting Started
 

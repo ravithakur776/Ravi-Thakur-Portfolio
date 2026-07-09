@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { LandingExperience } from "@/features/experience/experience/landing-experience";
+import { HomeExperience } from "@/features/home/home-experience";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createPageMetadata({
@@ -10,7 +10,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 function HomePage() {
-  return <LandingExperience />;
+  return <HomeExperience />;
 }
 
 export default HomePage;

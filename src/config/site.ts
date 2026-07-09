@@ -8,8 +8,12 @@ export const siteConfig = {
   locale: "en_US",
   defaultTheme: "dark",
   links: {
+    email: "",
     github: "",
     linkedin: "",
+    instagram: "",
+    whatsapp: "",
+    resume: "",
     x: "",
   },
 } as const;

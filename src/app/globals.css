@@ -212,6 +212,18 @@ select {
   animation: experience-scroll-arrow 1.8s ease-in-out infinite;
 }
 
+.product-media {
+  transform: translateZ(0);
+}
+
+.product-media-grid {
+  background-image:
+    linear-gradient(to right, oklch(1 0 0 / 10%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 8%) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(circle at center, black, transparent 72%);
+}
+
 @keyframes experience-load-line {
   0% {
     transform: translateX(-70%) scaleX(0.45);
