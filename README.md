@@ -238,3 +238,4 @@ Future decision records should live in `docs/adr/` and use this naming pattern:
 ```
 
 Each ADR should explain the context, decision, alternatives, tradeoffs, and rollback strategy.
+
